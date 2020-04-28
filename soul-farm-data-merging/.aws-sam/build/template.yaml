@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'soul-farm-data-merging
+
+  Sample SAM Template for soul-farm-data-merging
+
+  '
+Globals:
+  Function:
+    Timeout: 900
+Resources:
+  MergeDataFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: MergeDataFunction
+      Handler: app.lambdaHandler
+      Runtime: nodejs12.x
+      Events:
+        MergeData:
+          Type: Api
+          Properties:
+            Path: /merge
+            Method: get
+        MergeDataScheduledEvent:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 hour)
+Outputs:
+  MergeDataApi:
+    Description: API Gateway endpoint URL for Prod stage for Merge Data function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/merge/
+  MergeDataFunction:
+    Description: Merge Data Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - MergeDataFunction
+      - Arn
+  MergeDataFunctionIamRole:
+    Description: Implicit IAM Role created for Merge Data function
+    Value:
+      Fn::GetAtt:
+      - MergeDataFunctionRole
+      - Arn

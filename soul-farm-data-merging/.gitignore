@@ -125,5 +125,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-
+credentials.json
 # End of https://www.gitignore.io/api/osx,node,linux,windows
