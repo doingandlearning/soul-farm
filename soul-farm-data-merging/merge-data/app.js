@@ -52,7 +52,9 @@ exports.lambdaHandler = async (event, context) => {
 
     response = {
       statusCode: 200,
-      body: JSON.stringify(monthly),
+      body: JSON.stringify({
+        message: "Data merged",
+      }),
     };
   } catch (err) {
     console.log(err);
